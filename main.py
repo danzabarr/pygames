@@ -3,6 +3,7 @@ import pygame
 from snake import Snake
 from tetris import Tetris
 from pong import Pong
+from invaders import Invaders
 
 # Main entry point
 def main():
@@ -19,7 +20,7 @@ def main():
     clock = pygame.time.Clock()
     running = True
     game = None
-    menu = [ Snake(), Tetris(), Pong() ]
+    menu = [ Snake(), Tetris(), Pong(), Invaders() ]
     menu_index = 0
     paused = False
     interval = 60
@@ -79,18 +80,17 @@ def update(elapsed : float):
                 
                 # Quit game to menu
                 if event.key == pygame.K_ESCAPE:
-                    game.quit()
                     paused = False
                     game = None
                     pygame.display.set_caption("pygames | menu")
 
                 # Toggle pause game
-                elif event.key == pygame.K_SPACE:
+                elif event.key == pygame.K_p:
                     paused = not paused
 
     # Finally, update current game
     if game is not None and not paused:
-        game.update(elapsed, pygame.event.get())
+        game.update(elapsed, events)
 
 def render():
     global game, menu, screen, menu_index
